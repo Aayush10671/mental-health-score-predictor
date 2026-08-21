@@ -1,0 +1,11 @@
+data_preprocessing:
+  test_size: 0.2
+  random_state: 42
+  outlier_multiplier: 1.5
+
+model_building:
+  n_estimators: 200
+  max_depth: None
+  min_samples_leaf: 1
+  min_samples_split: 2
+

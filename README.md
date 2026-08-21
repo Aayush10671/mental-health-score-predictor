@@ -3,6 +3,15 @@ mental health score predictor
 
 A ml project to predict the mental health score on the scale of 1 to 10
 
+Run the app
+-----------
+
+Install the requirements, then start FastAPI from the project root:
+
+    python -m uvicorn app.main:app --reload
+
+Open http://127.0.0.1:8000 to use the prediction form. The API documentation is available at http://127.0.0.1:8000/docs.
+
 Project Organization
 ------------
 

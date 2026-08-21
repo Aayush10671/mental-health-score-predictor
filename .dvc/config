@@ -1,0 +1,4 @@
+[core]
+    remote = mhsp-remote
+['remote "mhsp-remote"']
+    url = C:\Users\KIIT0001\AppData\Local\Temp

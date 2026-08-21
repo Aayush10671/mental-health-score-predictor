@@ -1,0 +1,55 @@
+stages:
+  data_ingestion:
+    cmd: python src/data/data_ingestion.py
+    deps:
+      - src/data/data_ingestion.py
+      - data/external/dataset.csv
+    outs:
+      - data/raw/dataset.csv
+
+  data_preprocessing:
+    cmd: python src/data/data_preprocessing.py
+    deps:
+      - src/data/data_preprocessing.py
+      - data/raw/dataset.csv
+      - params.yaml
+    params:
+      - data_preprocessing.test_size
+      - data_preprocessing.random_state
+      - data_preprocessing.outlier_multiplier
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+      - models/preprocessor.joblib
+      - models/feature_names.joblib
+      - models/column_groups.joblib
+
+  model_building:
+    cmd: python src/models/model_building.py
+    deps:
+      - src/models/model_building.py
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
+      - params.yaml
+    params:
+      - model_building.n_estimators
+      - model_building.max_depth
+      - model_building.min_samples_split
+      - model_building.min_samples_leaf
+    outs:
+      - models/model.pkl
+      - models/model_features.pkl
+
+  model_evaluation:
+    cmd: python src/models/model_evaluation.py
+    deps:
+      - src/models/model_evaluation.py
+      - data/processed/X_test.csv
+      - data/processed/y_test.csv
+      - models/model.pkl
+      - models/model_features.pkl
+    outs:
+      - models/metrics.json
+    
